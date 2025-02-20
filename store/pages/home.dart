@@ -67,7 +67,7 @@ class Home extends StatelessWidget {
                   _buildInnerContainer(
                       'Ваши покупки\nПросматривайте ваши чеки здесь',
                       2,
-                      '/B'),
+                      context),
                   const Divider(
                     color: primaryVarColor,
                     thickness: 2,
@@ -133,6 +133,11 @@ class Home extends StatelessWidget {
           color: surfaceColor),
       child: GestureDetector(
         onTap: () {
+          if (index == 2) {
+            Navigator.pushNamed(context, '/B');
+          } else if (index == 3) {
+            Navigator.pushNamed(context, '/C');
+          } else {
           // Навигация на новый экран при нажатии на текст
           Navigator.push(
             context,
@@ -140,6 +145,7 @@ class Home extends StatelessWidget {
               builder: (context) => DetailPage(index: index), // Переход на экран с подробной информацией
             ),
           );
+          }
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
