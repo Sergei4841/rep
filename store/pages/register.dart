@@ -24,7 +24,7 @@ class Register extends StatelessWidget {
                 children: [
                   Text(
                     "РЕГИСТРАЦИЯ",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, decoration: TextDecoration.underline,),
                   ),
                   SizedBox(width: 8),
                   Container(
@@ -117,7 +117,7 @@ class Register extends StatelessWidget {
               backgroundColor: primaryColor,
               padding: EdgeInsets.symmetric(vertical: 15),
             ),
-            icon: Icon(Icons.alternate_email, color: Colors.white),
+            icon: Icon(Icons.alternate_email, color: Colors.red),
             label: Text("Войти с Яндекс ID",
                 style: TextStyle(color: Colors.white, fontSize: 16)),
           ),
