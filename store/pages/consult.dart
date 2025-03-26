@@ -114,7 +114,20 @@ class Consult extends StatelessWidget {
                     height: 0.5,
                   ),
                   _buildInnerContainer(
-                      'Выход\nВыход из вашей учётной записи', 4,
+                      'Загрузить конфигурацию\nОбновите информацию о наличии и ценах',
+                      4,
+                      context,
+                      leftImagePath: 'assets/images/load.png',
+                      rightImagePath: 'assets/images/arrow.png'),
+                  const Divider(
+                    color: primaryVarColor,
+                    thickness: 2,
+                    indent: 20,
+                    endIndent: 20,
+                    height: 0.5,
+                  ),
+                  _buildInnerContainer(
+                      'Выход\nВыход из вашей учётной записи', 5,
                       context,
                       leftImagePath: 'assets/images/exit.png',
                       rightImagePath: 'assets/images/run.png')
@@ -180,7 +193,7 @@ class Consult extends StatelessWidget {
                       color: textColor,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 3),
                   Text(
                     parts.length > 1 ? parts[1] : '',
                     style: const TextStyle(color: Colors.grey, fontSize: subfont),
