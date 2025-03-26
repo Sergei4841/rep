@@ -87,28 +87,21 @@ class Home extends StatelessWidget {
                       rightImagePath: 'assets/images/arrow.png'),
                   const Divider(color: primaryVarColor, thickness: 2, indent: 20, endIndent: 20),
                   _buildInnerContainer(
-                      'Способ оплаты\nИзмените или добавьте карту',
-                      4,
-                      context,
-                      leftImagePath: 'assets/images/card.png',
-                      rightImagePath: 'assets/images/arrow.png'),
-                  const Divider(color: primaryVarColor, thickness: 2, indent: 20, endIndent: 20),
-                  _buildInnerContainer(
                       'Выход\nВыход из вашей учетной записи',
-                      5,
+                      4,
                       context,
                       leftImagePath: 'assets/images/exit.png',
                       rightImagePath: 'assets/images/run.png'),
                   const Divider(color: backgroundColor, thickness: 6),
                   _buildInnerContainer(
                       'Помощь и поддержка',
-                      6,
+                      5,
                       context,
                       leftImagePath: 'assets/images/question.png'),
                   const Divider(color: primaryVarColor, thickness: 2, indent: 20, endIndent: 20),
                   _buildInnerContainer(
                       'О нашем приложении',
-                      7,
+                      6,
                       context,
                       leftImagePath: 'assets/images/help.png')
                 ],
@@ -133,8 +126,10 @@ class Home extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          if (index == 0) {
-            Navigator.pushNamed(context, '/C');
+          if (index == 2) {
+            Navigator.pushNamed(context, '/B');
+          } else if (index == 4) {
+            Navigator.pushNamed(context, '/L');
           } else {
             Navigator.push(
               context,
@@ -173,7 +168,7 @@ class Home extends StatelessWidget {
                       color: textColor,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 0.1),
                   Text(
                     parts.length > 1 ? parts[1] : '',
                     style: const TextStyle(color: Colors.grey, fontSize: subfont),
