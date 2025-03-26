@@ -62,14 +62,14 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Icon(Icons.check_circle, color: Colors.green, size: 18),
                     SizedBox(width: 5),
-                    Text("Strong password",
+                    Text("Хороший пароль",
                         style: TextStyle(color: Colors.green)),
                   ],
                 ),
                 GestureDetector(
                   onTap: () {}, // Добавить обработку сброса пароля
                   child: Text(
-                    "Reset password",
+                    "Восстановить пароль",
                     style: TextStyle(color: Colors.red, fontSize: 14),
                   ),
                 ),
@@ -139,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
             // Регистрация
             Center(
               child: GestureDetector(
-                onTap: () => Navigator.pushNamed(context, '/register'),
+                onTap: () => Navigator.pushNamed(context, '/R'),
                 child: Text(
                   "Нет аккаунта? Зарегистрируйтесь",
                   style: TextStyle(color: primaryColor, fontSize: 16),
