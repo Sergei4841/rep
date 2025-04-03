@@ -1,16 +1,22 @@
 # smartstore
 
-A new Flutter project.
+## Описание
+Android приложение, для осуществления очных покупок в магазинах, не прибегаю к мерам взаимодействия с кассирами и кассами самообслуживания. 
 
-## Getting Started
+## Возможности
+- Вход/Регистрация аккаунта
+- Подключение любого магазина/сети магазинов к приложению
+- Регистрация/Вход по ЯндексID
+- Отдельный аккаунт продавца, в котором он может отслеживать наличие товара и добавлять новый
+- Список доступных товаров покупателю
+- Сканирование штрихкода товара для добавления в корзину и дальнейшей оплаты
 
-This project is a starting point for a Flutter application.
+## Как к нам подключиться?
+1. Написать сообщение на почту
+2. Установить наше мобильное приложение
 
-A few resources to get you started if this is your first Flutter project:
+## Приложение
+[Ссылка на приложение](https://github.com/Sergei4841/)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
