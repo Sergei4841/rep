@@ -1,3 +1,4 @@
+![Logo image](https://github.com/Sergei4841/rep/blob/smart/store/assets/logo.webp)
 # smartstore
 
 ## Описание
