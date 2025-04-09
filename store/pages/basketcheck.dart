@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartstore/design/colors.dart';
 import 'package:smartstore/pages/home.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class BasketChecked extends StatelessWidget {
   @override
@@ -20,8 +21,21 @@ class ShoppingPage extends StatelessWidget {
     {"name": "Майонез СЛОБОДА, провансаль, 67%, 750г", "price": "159.99₽", "image": "assets/images/mayonez.png"},
   ];
 
-  void _openScanner() {
-    print("Открытие сканера...");
+  Future<void> _openScanner(BuildContext context) async {
+    String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+      "#ff6666", // Цвет линии сканера
+      "Отмена", // Кнопка отмены
+      true,     // Включить/отключить вспышку
+      ScanMode.BARCODE,
+    );
+
+    if (barcodeScanRes != "-1") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Штрих-код: $barcodeScanRes")),
+      );
+
+      // 💡 Здесь можно реализовать поиск продукта по штрих-коду
+    }
   }
 
   @override
@@ -33,10 +47,7 @@ class ShoppingPage extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.account_circle_outlined, color: Colors.black, size: 40),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Home()),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
           },
         ),
         title: TextField(
@@ -100,7 +111,7 @@ class ShoppingPage extends StatelessWidget {
             child: Column(
               children: [
                 InkWell(
-                  onTap: _openScanner,
+                  onTap: () => _openScanner(context),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
