@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:smartstore/design/colors.dart';
-import 'package:smartstore/pages/home.dart';
+import 'package:smartstore2/design/colors.dart';
+import 'package:smartstore2/pages/home.dart';
+
+import '../design/colors.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -113,24 +115,6 @@ class _LoginPageState extends State<LoginPage> {
                   "Войти",
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
-              ),
-            ),
-
-            SizedBox(height: 20),
-            Center(child: Text("или войти с помощью")),
-            SizedBox(height: 15),
-
-            // Войти с Яндекс ID
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: () {},
-                style: OutlinedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  side: BorderSide(color: primaryColor),
-                ),
-                icon: Icon(Icons.alternate_email, color: Colors.red),
-                label: Text("Войти с Яндекс ID", style: TextStyle(fontSize: 16)),
               ),
             ),
 
