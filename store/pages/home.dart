@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smartstore2/design/colors.dart';
 import 'package:smartstore2/design/dimensions.dart';
 import 'package:url_launcher/url_launcher.dart';
-//import 'package:smartstore2/pages/profilepage.dart';
+import 'package:smartstore2/pages/profilepage.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -47,10 +47,6 @@ class Home extends StatelessWidget {
             height: 50,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              image: const DecorationImage(
-                image: AssetImage('assets/images/novateam.png'),
-                fit: BoxFit.cover,
-              ),
             ),
           ),
           const SizedBox(width: 12),
@@ -123,14 +119,15 @@ class Home extends StatelessWidget {
   }
 
   Widget _buildDivider() {
-    return const Divider(color: primaryVarColor, thickness: 2, indent: 20, endIndent: 20);
+    return const Divider(
+        color: primaryVarColor, thickness: 2, indent: 20, endIndent: 20);
   }
 
   Widget _buildMenuItem(BuildContext context,
       {required IconData icon,
-        required String title,
-        String subtitle = '',
-        required int index}) {
+      required String title,
+      String subtitle = '',
+      required int index}) {
     return ListTile(
       leading: Icon(icon, color: primaryColor, size: 28),
       title: Text(
@@ -138,43 +135,47 @@ class Home extends StatelessWidget {
         style: const TextStyle(fontSize: mainfont, color: textColor),
       ),
       subtitle: subtitle.isNotEmpty
-          ? Text(subtitle, style: const TextStyle(fontSize: subfont, color: Colors.blueGrey))
+          ? Text(subtitle,
+              style: const TextStyle(fontSize: subfont, color: Colors.blueGrey))
           : null,
-      trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-        onTap: () {
-          switch (index) {
-            //case 0:
-              //Navigator.push(
-                //context,
-                //MaterialPageRoute(builder: (context) => const ProfilePage()),
-              //);
-              //break;
-            case 1:
-              Navigator.pushNamed(context, '/B');
-              break;
-            case 3:
-              Navigator.pushNamed(context, '/L');
-              break;
-            case 4:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SupportPage()),
-              );
-              break;
-            case 5:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AboutPage()),
-              );
-              break;
-            default:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DetailPage(index: index)),
-              );
-          }
-        },
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+      trailing:
+          const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+      onTap: () {
+        switch (index) {
+          case 0:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfilePage()),
+            );
+            break;
+          case 1:
+            Navigator.pushNamed(context, '/B');
+            break;
+          case 2:
+            Navigator.pushNamed(context, '');
+          case 3:
+            Navigator.pushNamed(context, '/L');
+            break;
+          case 4:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SupportPage()),
+            );
+            break;
+          case 5:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AboutPage()),
+            );
+            break;
+          default:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DetailPage(index: index)),
+            );
+        }
+      },
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );
   }
@@ -213,15 +214,20 @@ class SupportPage extends StatelessWidget {
             text: TextSpan(
               style: const TextStyle(fontSize: 18, color: Colors.black87),
               children: [
-                const TextSpan(text: 'Если у вас есть вопросы, свяжитесь с нами по электронной почте: '),
+                const TextSpan(
+                    text:
+                        'Если у вас есть вопросы, свяжитесь с нами по электронной почте: '),
                 WidgetSpan(
                   child: GestureDetector(
                     onTap: () {
-                      launchUrl(Uri.parse('gejnmaks886@gmail.com')); // Замените на свою почту
+                      launchUrl(Uri.parse(
+                          'gejnmaks886@gmail.com')); // Замените на свою почту
                     },
                     child: const Text(
                       'gejnmaks886@gmail.com',
-                      style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+                      style: TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline),
                     ),
                   ),
                 ),
@@ -245,7 +251,8 @@ class AboutPage extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: RichText(
           text: TextSpan(
-            style: TextStyle(fontSize: 18, color: Colors.black), // базовый стиль
+            style:
+                TextStyle(fontSize: 18, color: Colors.black), // базовый стиль
             children: [
               TextSpan(
                 text: 'Описание:\n',
@@ -253,7 +260,7 @@ class AboutPage extends StatelessWidget {
               ),
               TextSpan(
                 text:
-                '"Умный магазин" - это Android приложение, спроектированное для осуществления очных покупок в магазинах, без взаимодействия с кассирами и кассами самообслуживания.\n\n',
+                    '"Умный магазин" - это Android приложение, спроектированное для осуществления очных покупок в магазинах, без взаимодействия с кассирами и кассами самообслуживания.\n\n',
               ),
               TextSpan(
                 text: 'Возможности:\n',
@@ -261,7 +268,7 @@ class AboutPage extends StatelessWidget {
               ),
               TextSpan(
                 text:
-                '* Вход/Регистрация аккаунта\n* Подключение любого магазина/сети магазинов к приложению'
+                    '* Вход/Регистрация аккаунта\n* Подключение любого магазина/сети магазинов к приложению'
                     '\n* Регистрация/Вход по электронной почте'
                     '\n* Отдельный аккаунт продавца, в котором он может отслеживать наличие товара и добавлять новый'
                     '\n* Список доступных товаров покупателю'
@@ -274,4 +281,3 @@ class AboutPage extends StatelessWidget {
     );
   }
 }
-
