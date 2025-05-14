@@ -3,7 +3,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:smartstore2/design/colors.dart';
 import 'package:smartstore2/pages/home.dart';
 
-class BasketChecked extends StatelessWidget {
+class BasketNotChecked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -147,10 +147,10 @@ class _ShoppingPageCheckedState extends State<ShoppingPageChecked> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.verified, color: Colors.green),
+                      Icon(Icons.verified, color: Colors.red),
                       SizedBox(width: 8),
                       Text("Подтвердите ваш возраст",
-                          style: TextStyle(color: Colors.green, fontSize: 16)),
+                          style: TextStyle(color: Colors.red, fontSize: 16)),
                     ],
                   ),
                 ),
