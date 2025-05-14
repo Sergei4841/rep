@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'package:smartstore/design/colors.dart';
-import 'package:smartstore/design/dimensions.dart';
+import 'package:smartstore2/design/colors.dart';
+import 'package:smartstore2/design/dimensions.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:smartstore2/pages/profilepage.dart';
 
 class Consult extends StatelessWidget {
   const Consult({super.key});
@@ -16,213 +17,162 @@ class Consult extends StatelessWidget {
           'Профиль',
           style: TextStyle(fontSize: firstfont),
         ),
+        elevation: 0,
       ),
-      body: Column(
-        children: <Widget>[
-          // Первый контейнер с текстом и отступом слева
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildProfileHeader(),
+            const SizedBox(height: 5),
+            _buildMenuList(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileHeader() {
+    return Container(
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      height: 70,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        color: primaryColor,
+      ),
+      child: Row(
+        children: [
           Container(
-            margin: const EdgeInsets.all(5),
-            alignment: Alignment.centerLeft,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(25)),
-              color: primaryColor,
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            height: 70,
-            child: Row(
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    image: const DecorationImage(
-                      image: AssetImage('assets/images/novateam.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 12), // Отступ между изображением и текстом
-                const Text(
-                  'Новаторы Тим\n @novateam',
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                ),
-              ],
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
             ),
           ),
-          const SizedBox(height: 0.1), // Разделитель между основными контейнерами
-          // Второй контейнер с вложенными контейнерами
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(5),
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(25)),
-                  color: surfaceColor),
-              child: Column(
-                children: [
-                  _buildInnerContainer(
-                      'Мой профиль\nИзмените данные учетной записи',
-                      0,
-                      context,
-                      leftImagePath: 'assets/images/profile.png',
-                      rightImagePath: 'assets/images/arrow.png'),
-                  const Divider(
-                    color: primaryVarColor,
-                    thickness: 2,
-                    indent: 20,
-                    endIndent: 20,
-                    height: 0.5,
-                  ),
-                  // Разделитель между первым и вторым контейнерами
-                  _buildInnerContainer(
-                      'Редактирование\nИзмените оформление вашего аккаунта',
-                      1,
-                      context,
-                      leftImagePath: 'assets/images/edit.png',
-                      rightImagePath: 'assets/images/arrow.png'),
-                  const Divider(
-                    color: primaryVarColor,
-                    thickness: 2,
-                    indent: 20,
-                    endIndent: 20,
-                    height: 0.5,
-                  ),
-                  _buildInnerContainer(
-                      'Обновить цену товаров',
-                      2,
-                      context,
-                      leftImagePath: 'assets/images/ruble.png',
-                      rightImagePath: 'assets/images/arrow.png'),
-                  const Divider(
-                    color: primaryVarColor,
-                    thickness: 2,
-                    indent: 20,
-                    endIndent: 20,
-                    height: 0.5,
-                  ),
-                  _buildInnerContainer(
-                      'Помощь и поддержка',
-                      3,
-                      context,
-                      leftImagePath: 'assets/images/question.png',
-                      rightImagePath: 'assets/images/arrow.png'),
-                  const Divider(
-                    color: primaryVarColor,
-                    thickness: 2,
-                    indent: 20,
-                    endIndent: 20,
-                    height: 0.5,
-                  ),
-                  _buildInnerContainer(
-                      'Загрузить конфигурацию\nОбновите информацию о наличии и ценах',
-                      4,
-                      context,
-                      leftImagePath: 'assets/images/load.png',
-                      rightImagePath: 'assets/images/arrow.png'),
-                  const Divider(
-                    color: primaryVarColor,
-                    thickness: 2,
-                    indent: 20,
-                    endIndent: 20,
-                    height: 0.5,
-                  ),
-                  _buildInnerContainer(
-                      'Выход\nВыход из вашей учётной записи', 5,
-                      context,
-                      leftImagePath: 'assets/images/exit.png',
-                      rightImagePath: 'assets/images/run.png')
-                ],
-              ),
-            ),
+          const SizedBox(width: 12),
+          const Text(
+            'Новаторы Тим\n@novateam',
+            style: TextStyle(fontSize: 16, color: Colors.white),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildInnerContainer(String text, int index, BuildContext context,
-      {String? leftImagePath, String? rightImagePath}) {
-    final parts = text.split('\n');
+  Widget _buildMenuList(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 1),
-      alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(25)),
+      margin: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
         color: surfaceColor,
       ),
-      child: GestureDetector(
-        onTap: () {
-          if (index == 0) {
-            Navigator.pushNamed(context, '/');
-          } else {
+      child: Column(
+        children: [
+          _buildMenuItem(
+            context,
+            icon: Icons.person_outline,
+            title: 'Мой профиль',
+            subtitle: 'Измените данные учетной записи',
+            index: 0,
+          ),
+          _buildDivider(),
+          _buildMenuItem(
+            context,
+            icon: Icons.currency_ruble,
+            title: 'Обновить цену товаров',
+            index: 1,
+          ),
+          _buildDivider(),
+          _buildMenuItem(
+            context,
+            icon: Icons.question_mark_rounded,
+            title: 'Помощь и поддержка',
+            index: 2,
+          ),
+          const Divider(color: backgroundColor, thickness: 6),
+          _buildMenuItem(
+            context,
+            icon: Icons.upload,
+            title: 'Загрузить конфигурацию',
+            subtitle: 'Обновите информацию о наличии и ценах',
+            index: 3,
+          ),
+          _buildDivider(),
+          _buildMenuItem(
+            context,
+            icon: Icons.info_outline,
+            title: 'Выход',
+            subtitle: 'Выход из вашей учетной записи',
+            index: 4,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDivider() {
+    return const Divider(
+        color: primaryVarColor, thickness: 2, indent: 20, endIndent: 20);
+  }
+
+  Widget _buildMenuItem(BuildContext context,
+      {required IconData icon,
+      required String title,
+      String subtitle = '',
+      required int index}) {
+    return ListTile(
+      leading: Icon(icon, color: primaryColor, size: 28),
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: mainfont, color: textColor),
+      ),
+      subtitle: subtitle.isNotEmpty
+          ? Text(subtitle,
+              style: const TextStyle(fontSize: subfont, color: Colors.blueGrey))
+          : null,
+      trailing:
+          const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+      onTap: () {
+        switch (index) {
+          case 0:
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => DetailPage(index: index),
-              ),
+              MaterialPageRoute(builder: (context) => const ProfilePage()),
             );
-          }
-        },
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            //  Слева изображение
-            if (leftImagePath != null)
-              Container(
-                width: 30,
-                height: 30,
-                margin: const EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
-                    image: AssetImage(leftImagePath),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            // Текстовая часть
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    parts[0],
-                    style: const TextStyle(
-                      fontSize: mainfont,
-                      color: textColor,
-                    ),
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    parts.length > 1 ? parts[1] : '',
-                    style: const TextStyle(color: Colors.grey, fontSize: subfont),
-                  ),
-                ],
-              ),
-            ),
-            // Справа изображение
-            if (rightImagePath != null)
-              Container(
-                width: 20,
-                height: 20,
-                margin: const EdgeInsets.only(left: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
-                    image: AssetImage(rightImagePath),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
+            break;
+          case 1:
+            Navigator.pushNamed(context, '/B');
+            break;
+          case 2:
+            Navigator.pushNamed(context, '');
+          case 3:
+            Navigator.pushNamed(context, '/L');
+            break;
+          case 4:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SupportPage()),
+            );
+            break;
+          case 5:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AboutPage()),
+            );
+            break;
+          default:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DetailPage(index: index)),
+            );
+        }
+      },
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );
   }
 }
 
-// Экран для отображения подробной информации
 class DetailPage extends StatelessWidget {
   final int index;
 
@@ -230,15 +180,94 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Возвращаем экран с подробной информацией о том, какой индекс был выбран
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Подробности $index'),
-      ),
+      appBar: AppBar(title: Text('Подробности $index')),
       body: Center(
         child: Text(
-          'Вы выбрали контейнер с индексом: $index',
+          'Вы выбрали пункт с индексом: $index',
           style: const TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
+}
+
+class SupportPage extends StatelessWidget {
+  const SupportPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Помощь и поддержка')),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: RichText(
+            text: TextSpan(
+              style: const TextStyle(fontSize: 18, color: Colors.black87),
+              children: [
+                const TextSpan(
+                    text:
+                        'Если у вас есть вопросы, свяжитесь с нами по электронной почте: '),
+                WidgetSpan(
+                  child: GestureDetector(
+                    onTap: () {
+                      launchUrl(Uri.parse(
+                          'gejnmaks886@gmail.com')); // Замените на свою почту
+                    },
+                    child: const Text(
+                      'gejnmaks886@gmail.com',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AboutPage extends StatelessWidget {
+  const AboutPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('О нашем приложении')),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: RichText(
+          text: TextSpan(
+            style:
+                TextStyle(fontSize: 18, color: Colors.black), // базовый стиль
+            children: [
+              TextSpan(
+                text: 'Описание:\n',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              TextSpan(
+                text:
+                    '"Умный магазин" - это Android приложение, спроектированное для осуществления очных покупок в магазинах, без взаимодействия с кассирами и кассами самообслуживания.\n\n',
+              ),
+              TextSpan(
+                text: 'Возможности:\n',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+              ),
+              TextSpan(
+                text:
+                    '* Вход/Регистрация аккаунта\n* Подключение любого магазина/сети магазинов к приложению'
+                    '\n* Регистрация/Вход по электронной почте'
+                    '\n* Отдельный аккаунт продавца, в котором он может отслеживать наличие товара и добавлять новый'
+                    '\n* Список доступных товаров покупателю'
+                    '\n* Сканирование штрихкода товара для добавления в корзину и дальнейшей оплаты',
+              )
+            ],
+          ),
         ),
       ),
     );
