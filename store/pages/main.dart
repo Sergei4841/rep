@@ -15,7 +15,7 @@ void main() => runApp(
         theme: ThemeData(
           primaryColor: primaryColor,
         ),
-        initialRoute: '/C',
+        initialRoute: '/R',
         routes: {
           '/H': (context) => Home(),
           '/B': (context) => Basket(),
