@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smartstore/design/colors.dart';
-import 'package:smartstore/pages/home.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:smartstore2/design/colors.dart';
+import 'package:smartstore2/pages/home.dart';
 
 class Basket extends StatelessWidget {
   @override
@@ -12,16 +13,30 @@ class Basket extends StatelessWidget {
   }
 }
 
-class ShoppingPage extends StatelessWidget {
-  final List<Map<String, dynamic>> products = [
-    {"name": "Сметана Простоквашино 10% 300г", "price": "74.99₽", "image": "assets/images/smetana.png"},
-    {"name": "Пирожное Milka бисквитное с кремом цельное молоко 29г", "price": "55.99₽", "image": "assets/images/milka.png"},
-    {"name": "Колбаса Папа Может, Сервелат Финский, 0,42кг", "price": "164.99₽", "image": "assets/images/kolbasa.png"},
-    {"name": "Майонез СЛОБОДА, провансаль, 67%, 750г", "price": "159.99₽", "image": "assets/images/mayonez.png"},
+class ShoppingPage extends StatefulWidget {
+  @override
+  _ShoppingPageState createState() => _ShoppingPageState();
+}
+
+class _ShoppingPageState extends State<ShoppingPage> {
+  List<Map<String, dynamic>> products = [
+    {"name": "Сметана Простоквашино 10% 300г", "price": "74.99₽"},
+    {"name": "Пирожное Milka", "price": "55.99₽"},
+    {"name": "Колбаса Папа Может", "price": "164.99₽"},
+    {"name": "Майонез СЛОБОДА", "price": "159.99₽"},
   ];
 
-  void _openScanner() {
-    print("Открытие сканера...");
+  void _openScanner() async {
+    final scannedProduct = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BarcodeScanPage()),
+    );
+
+    if (scannedProduct != null) {
+      setState(() {
+        products.add(scannedProduct);
+      });
+    }
   }
 
   @override
@@ -31,9 +46,11 @@ class ShoppingPage extends StatelessWidget {
         backgroundColor: backgroundColor,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.account_circle_outlined, color: Colors.black, size: 40),
+          icon: Icon(Icons.account_circle_outlined,
+              color: Colors.black, size: 40),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Home()));
           },
         ),
         title: Container(
@@ -66,10 +83,7 @@ class ShoppingPage extends StatelessWidget {
               height: 150,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                  image: AssetImage("assets/images/banner.png"),
-                  fit: BoxFit.cover,
-                ),
+                color: Colors.grey[300], // Заменили изображение на цвет
               ),
               child: Align(
                 alignment: Alignment.centerRight,
@@ -109,9 +123,10 @@ class ShoppingPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.barcode_reader, color: Colors.black),
+                    Icon(Icons.camera_alt, color: Colors.black),
                     SizedBox(width: 8),
-                    Text("Используйте камеру", style: TextStyle(color: primaryColor, fontSize: 20)),
+                    Text("Используйте камеру",
+                        style: TextStyle(color: primaryColor, fontSize: 20)),
                   ],
                 ),
               ),
@@ -154,9 +169,41 @@ class ProductCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: ListTile(
-        leading: Image.asset(product["image"], width: 50),
+        leading:
+            Icon(Icons.shopping_basket_outlined, size: 40, color: Colors.grey),
         title: Text(product["name"], style: TextStyle(fontSize: 13)),
-        trailing: Text(product["price"], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        trailing: Text(product["price"],
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      ),
+    );
+  }
+}
+
+class BarcodeScanPage extends StatelessWidget {
+  final Map<String, Map<String, dynamic>> barcodeToProduct = {
+    '123456': {"name": "Новое молоко", "price": "80.00₽"},
+    '789012': {"name": "Шоколад", "price": "99.99₽"},
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Сканер штрихкода')),
+      body: MobileScanner(
+        controller: MobileScannerController(),
+        onDetect: (capture) {
+          final barcode = capture.barcodes.first;
+          final code = barcode.rawValue ?? '';
+          final product = barcodeToProduct[code];
+
+          if (product != null) {
+            Navigator.pop(context, product);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Товар с таким штрихкодом не найден")),
+            );
+          }
+        },
       ),
     );
   }
