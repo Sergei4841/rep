@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:smartstore/design/colors.dart';
+import 'package:smartstore2/design/colors.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -18,7 +18,8 @@ class _RegisterState extends State<Register> {
   Future<void> _register() async {
     setState(() => isLoading = true);
 
-    final url = Uri.parse('https://yourapi.com/register'); // ✅ Укажи реальный URL
+    final url =
+        Uri.parse('https://yourapi.com/register'); // ✅ Укажи реальный URL
     final headers = {"Content-Type": "application/json"};
     final body = jsonEncode({
       "email": _emailController.text.trim(),
@@ -52,12 +53,12 @@ class _RegisterState extends State<Register> {
   }
 
   Widget _buildTextField(
-      IconData icon,
-      String label,
-      String hintText,
-      TextEditingController controller, {
-        bool obscureText = false,
-      }) {
+    IconData icon,
+    String label,
+    String hintText,
+    TextEditingController controller, {
+    bool obscureText = false,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -122,11 +123,15 @@ class _RegisterState extends State<Register> {
               ),
             ),
             SizedBox(height: 30),
-            _buildTextField(Icons.email, "Email", "Введите Ваш Email", _emailController),
+            _buildTextField(
+                Icons.email, "Email", "Введите Ваш Email", _emailController),
             SizedBox(height: 15),
-            _buildTextField(Icons.lock, "Пароль", "Введите Ваш пароль", _passwordController, obscureText: true),
+            _buildTextField(
+                Icons.lock, "Пароль", "Введите Ваш пароль", _passwordController,
+                obscureText: true),
             SizedBox(height: 15),
-            _buildTextField(Icons.phone, "Телефон", "Введите Ваш телефон", _phoneController),
+            _buildTextField(Icons.phone, "Телефон", "Введите Ваш телефон",
+                _phoneController),
             SizedBox(height: 30),
             SizedBox(
               width: double.infinity,
@@ -134,10 +139,11 @@ class _RegisterState extends State<Register> {
                 onPressed: isLoading ? null : _register,
                 icon: isLoading
                     ? SizedBox(
-                  width: 18,
-                  height: 18,
-                  child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                )
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(
+                            strokeWidth: 2, color: Colors.white),
+                      )
                     : Icon(Icons.check, color: Colors.white),
                 label: Text(
                   isLoading ? "Загрузка..." : "Зарегистрироваться",
@@ -160,29 +166,11 @@ class _RegisterState extends State<Register> {
   Widget _buildLoginOptions(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton.icon(
-            onPressed: () => Navigator.pushNamed(context, '/L'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: primaryColor,
-              padding: EdgeInsets.symmetric(vertical: 15),
-            ),
-            icon: Icon(Icons.alternate_email, color: Colors.red),
-            label: Text("Войти с Яндекс ID", style: TextStyle(color: Colors.white, fontSize: 16)),
-          ),
-        ),
-        SizedBox(height: 10),
-        OutlinedButton.icon(
-          onPressed: () {},
-          style: OutlinedButton.styleFrom(padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10)),
-          icon: Icon(Icons.email, color: primaryVarColor),
-          label: Text("Войти через Email", style: TextStyle(fontSize: 16)),
-        ),
         SizedBox(height: 10),
         OutlinedButton.icon(
           onPressed: () => Navigator.pushNamed(context, '/C'),
-          style: OutlinedButton.styleFrom(padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10)),
+          style: OutlinedButton.styleFrom(
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10)),
           icon: Icon(Icons.store, color: Colors.black),
           label: Text("Войти как продавец", style: TextStyle(fontSize: 16)),
         ),
