@@ -148,7 +148,8 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         Text(
           label,
-          style: TextStyle(color: labelColor, fontSize: 16, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: labelColor, fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 5),
         TextField(
@@ -163,15 +164,15 @@ class _LoginPageState extends State<LoginPage> {
             fillColor: Colors.white,
             suffixIcon: isPassword
                 ? IconButton(
-              icon: Icon(_obscurePassword
-                  ? Icons.visibility_off
-                  : Icons.visibility),
-              onPressed: () {
-                setState(() {
-                  _obscurePassword = !_obscurePassword;
-                });
-              },
-            )
+                    icon: Icon(_obscurePassword
+                        ? Icons.visibility_off
+                        : Icons.visibility),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                  )
                 : null,
           ),
         ),
